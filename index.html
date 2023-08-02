@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Простой чат</title>
+    <title>Демонстрация чата</title>
 </head>
 <body>
     <h1>Добро пожаловать в наш чат!</h1>
@@ -16,19 +16,40 @@
     </form>
 
     <script>
-        // JavaScript-код для отправки сообщений и отображения ответов
+        // Локальный массив сообщений для демонстрации
+        var messages = [
+            { user: "Пользователь1", message: "Привет!" },
+            { user: "Пользователь2", message: "Привет, как дела?" },
+            { user: "Пользователь3", message: "Всем привет!" },
+        ];
+
+        // Функция для отображения сообщений
+        function displayMessages() {
+            var chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML = ""; // Очищаем поле чата перед выводом сообщений
+
+            messages.forEach(function (msg) {
+                chatBox.innerHTML += "<p><strong>" + msg.user + ":</strong> " + msg.message + "</p>";
+            });
+        }
+
+        // Функция для отправки сообщений
         function sendMessage() {
             var message = document.getElementById("message").value;
-            var chatBox = document.getElementById("chat-box");
 
-            // Добавляем новое сообщение к отображаемому чату
-            chatBox.innerHTML += "<p><strong>Вы:</strong> " + message + "</p>";
-
-            // Здесь можно добавить код для отправки сообщения на сервер и получения ответа от других пользователей
+            // Добавляем новое сообщение в массив сообщений
+            messages.push({ user: "Вы", message: message });
 
             // Очищаем поле ввода после отправки сообщения
             document.getElementById("message").value = "";
+
+            // Отображаем обновленные сообщения
+            displayMessages();
         }
+
+        // Отображаем начальные сообщения при загрузке страницы
+        displayMessages();
     </script>
 </body>
 </html>
+
