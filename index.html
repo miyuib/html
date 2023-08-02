@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Проверка рут-прав</title>
+    <title>Развлекательный сайт с Крестиками-ноликами</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -10,6 +10,22 @@
         }
         h1 {
             color: #333;
+        }
+        .board {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            cursor: pointer;
         }
         .button {
             display: inline-block;
@@ -26,24 +42,94 @@
         .button:hover {
             background-color: #45a049;
         }
-        #loading {
-            font-size: 18px;
-        }
     </style>
 </head>
 <body>
-    <h1>Проверка рут-прав</h1>
-    <button class="button" onclick="checkRoot()">Проверить рут-права</button>
-    <p id="loading"></p>
-    <p id="result"></p>
-    
+    <h1>Добро пожаловать на сайт с Крестиками-ноликами!</h1>
+    <div class="board" id="board">
+        <div class="cell" onclick="makeMove(0)"></div>
+        <div class="cell" onclick="makeMove(1)"></div>
+        <div class="cell" onclick="makeMove(2)"></div>
+        <div class="cell" onclick="makeMove(3)"></div>
+        <div class="cell" onclick="makeMove(4)"></div>
+        <div class="cell" onclick="makeMove(5)"></div>
+        <div class="cell" onclick="makeMove(6)"></div>
+        <div class="cell" onclick="makeMove(7)"></div>
+        <div class="cell" onclick="makeMove(8)"></div>
+    </div>
+    <button class="button" onclick="resetBoard()">Начать заново</button>
+
     <script>
-        function checkRoot() {
-            document.getElementById("loading").innerHTML = "Проверка рут-прав...";
-            setTimeout(function() {
-                document.getElementById("loading").innerHTML = "";
-                document.getElementById("result").innerHTML = "Устройство имеет рут-права.";
-            }, 3000); // Симуляция процесса проверки в течение 3 секунд
+        const board = document.getElementById("board");
+        const cells = board.getElementsByClassName("cell");
+        let currentPlayer = "X";
+        let isGameOver = false;
+
+        function makeMove(index) {
+            if (!isGameOver && cells[index].innerText === "") {
+                cells[index].innerText = currentPlayer;
+                checkWin();
+                switchPlayer();
+                botMove();
+                checkWin();
+            }
+        }
+
+        function switchPlayer() {
+            currentPlayer = (currentPlayer === "X") ? "O" : "X";
+        }
+
+        function botMove() {
+            const availableCells = [];
+            for (let i = 0; i < cells.length; i++) {
+                if (cells[i].innerText === "") {
+                    availableCells.push(i);
+                }
+            }
+
+            if (availableCells.length > 0) {
+                const randomIndex = Math.floor(Math.random() * availableCells.length);
+                const botMoveIndex = availableCells[randomIndex];
+                cells[botMoveIndex].innerText = currentPlayer;
+            }
+        }
+
+        function checkWin() {
+            const winningCombination = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
+
+            for (let combination of winningCombination) {
+                const [a, b, c] = combination;
+                if (cells[a].innerText && cells[a].innerText === cells[b].innerText && cells[b].innerText === cells[c].innerText) {
+                    isGameOver = true;
+                    setTimeout(function() {
+                        alert(`${currentPlayer} победил!`);
+                    }, 100);
+                    break;
+                }
+            }
+
+            if (!isGameOver && Array.from(cells).every(cell => cell.innerText !== "")) {
+                isGameOver = true;
+                setTimeout(function() {
+                    alert("Ничья!");
+                }, 100);
+            }
+        }
+
+        function resetBoard() {
+            isGameOver = false;
+            for (let cell of cells) {
+                cell.innerText = "";
+            }
         }
     </script>
 </body>
