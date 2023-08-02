@@ -1,71 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Скачать Rockstar Launcher</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
-
-        main {
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .download-button {
-            background-color: #007BFF;
-            color: #fff;
-            font-size: 1.4rem;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .download-button:hover {
-            background-color: #0056b3;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-        }
-    </style>
+    <title>Простой чат</title>
 </head>
 <body>
-    <header>
-        <h1>Скачать Rockstar Launcher</h1>
-    </header>
-    <main>
-        <p>Rockstar Launcher — это официальный лаунчер от компании Rockstar Games, который позволяет запускать и управлять играми от этого известного издателя.</p>
-        <a class="download-button" href="https://gamedownloads.rockstargames.com/public/installer/Rockstar-Games-Launcher.exe?_gl=1*l4m3ur*_ga*NDMyMTU4ODAzLjE2OTA4MDI5NzQ.*_ga_PJQ2JYZDQC*MTY5MDgwMjk3NC4xLjEuMTY5MDgwMzA4OS4wLjAuMA..#_ga=2.28400308.965682151.1690802974-432158803.1690802974" download>Скачать Rockstar Launcher</a>
-    </main>
-    <footer>
-        <p>&copy; 2023 Мой крутой сайт. Все права защищены.</p>
-    </footer>
+    <h1>Добро пожаловать в наш чат!</h1>
+
+    <div id="chat-box">
+        <!-- Здесь будут отображаться сообщения чата -->
+    </div>
+
+    <form onsubmit="sendMessage(); return false;">
+        <input type="text" id="message" placeholder="Введите сообщение">
+        <button type="submit">Отправить</button>
+    </form>
+
+    <script>
+        // JavaScript-код для отправки сообщений и отображения ответов
+        function sendMessage() {
+            var message = document.getElementById("message").value;
+            var chatBox = document.getElementById("chat-box");
+
+            // Добавляем новое сообщение к отображаемому чату
+            chatBox.innerHTML += "<p><strong>Вы:</strong> " + message + "</p>";
+
+            // Здесь можно добавить код для отправки сообщения на сервер и получения ответа от других пользователей
+
+            // Очищаем поле ввода после отправки сообщения
+            document.getElementById("message").value = "";
+        }
+    </script>
 </body>
 </html>
