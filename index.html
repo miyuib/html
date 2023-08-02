@@ -12,9 +12,10 @@
             color: #333;
         }
         .board {
-            display: flex;
-            flex-wrap: wrap;
-            max-width: 300px;
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 6px;
+            max-width: 318px;
             margin: 20px auto;
         }
         .cell {
@@ -70,8 +71,10 @@
                 cells[index].innerText = currentPlayer;
                 checkWin();
                 switchPlayer();
-                botMove();
-                checkWin();
+                if (!isGameOver) {
+                    botMove();
+                    checkWin();
+                }
             }
         }
 
@@ -134,3 +137,4 @@
     </script>
 </body>
 </html>
+
