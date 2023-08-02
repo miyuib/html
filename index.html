@@ -1,55 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Демонстрация чата</title>
+    <title>Проверка рут-прав</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        #loading {
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Добро пожаловать в наш чат!</h1>
-
-    <div id="chat-box">
-        <!-- Здесь будут отображаться сообщения чата -->
-    </div>
-
-    <form onsubmit="sendMessage(); return false;">
-        <input type="text" id="message" placeholder="Введите сообщение">
-        <button type="submit">Отправить</button>
-    </form>
-
+    <h1>Проверка рут-прав</h1>
+    <button class="button" onclick="checkRoot()">Проверить рут-права</button>
+    <p id="loading"></p>
+    <p id="result"></p>
+    
     <script>
-        // Локальный массив сообщений для демонстрации
-        var messages = [
-            { user: "Пользователь1", message: "Привет!" },
-            { user: "Пользователь2", message: "Привет, как дела?" },
-            { user: "Пользователь3", message: "Всем привет!" },
-        ];
-
-        // Функция для отображения сообщений
-        function displayMessages() {
-            var chatBox = document.getElementById("chat-box");
-            chatBox.innerHTML = ""; // Очищаем поле чата перед выводом сообщений
-
-            messages.forEach(function (msg) {
-                chatBox.innerHTML += "<p><strong>" + msg.user + ":</strong> " + msg.message + "</p>";
-            });
+        function checkRoot() {
+            document.getElementById("loading").innerHTML = "Проверка рут-прав...";
+            setTimeout(function() {
+                document.getElementById("loading").innerHTML = "";
+                document.getElementById("result").innerHTML = "Устройство имеет рут-права.";
+            }, 3000); // Симуляция процесса проверки в течение 3 секунд
         }
-
-        // Функция для отправки сообщений
-        function sendMessage() {
-            var message = document.getElementById("message").value;
-
-            // Добавляем новое сообщение в массив сообщений
-            messages.push({ user: "Вы", message: message });
-
-            // Очищаем поле ввода после отправки сообщения
-            document.getElementById("message").value = "";
-
-            // Отображаем обновленные сообщения
-            displayMessages();
-        }
-
-        // Отображаем начальные сообщения при загрузке страницы
-        displayMessages();
     </script>
 </body>
 </html>
-
