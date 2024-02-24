@@ -1,20 +1,28 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
+    $name = $_POST["name"];
+    $email = $_POST["email"];
     $password = $_POST["password"];
+    $confirmPassword = $_POST["confirmPassword"];
 
-    $data = "Имя пользователя: $username, Пароль: $password\n";
-
-    // Открываем файл для записи
-    $file = fopen("baza.txt", "a");
-
-    if ($file) {
-        fwrite($file, $data);
-        fclose($file);
-        echo "Регистрация успешна! Данные сохранены.";
+    if ($name == "" || $email == "" || $password == "" || $confirmPassword == "") {
+        echo "Ошибка: Пожалуйста, заполните все поля.";
+    } elseif ($password != $confirmPassword) {
+        echo "Ошибка: Пароли не совпадают.";
     } else {
-        echo "Ошибка при сохранении данных.";
+        // Хеширование пароля
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Данные для записи в файл
+        $data = "Имя: " . $name . "\nEmail: " . $email . "\nХешированный пароль: " . $hashedPassword . "\n\n";
+
+        // Запись в файл
+        $filename = "baza.txt";
+        file_put_contents($filename, $data, FILE_APPEND);
+
+        echo "Данные успешно сохранены!";
     }
+} else {
+    echo "Недопустимый запрос!";
 }
 ?>
-￼Enter
