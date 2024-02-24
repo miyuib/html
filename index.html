@@ -1,22 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Простой сайт с "регистрацией"</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Благотворительность</title>
+    <!-- Подключение библиотеки jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Подключение стилей Bootstrap (перед вашими стилями) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #000;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Добро пожаловать в благотворительность</h2>
+        <button class="btn btn-success btn-lg btn-block" onclick="showRegistrationForm()">Начать</button>
+        <form id="registrationForm" style="display:none;" onsubmit="saveData(event)" class="mt-4">
+            <h3 class="text-center mb-4">Регистрация</h3>
+            <div class="form-group">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Повторите пароль:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+            </div>
+            <div id="errorMessage" class="error-message"></div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Зарегистрироваться</button>
+        </form>
+    </div>
 
-<div class="container">
-    <h2>Регистрация</h2>
-    <form method="post" action="save_registration.php">
-        <label for="username">Имя пользователя:</label><br>
-        <input type="text" id="username" name="username"><br>
-        <label for="password">Пароль:</label><br>
-        <input type="password" id="password" name="password"><br><br>
-        <input type="submit" value="Зарегистрироваться">
-    </form>
-</div>
+    <!-- Модальное окно для отображения ошибок -->
+    <div class="modal" tabindex="-1" role="dialog" id="errorModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ошибка</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="errorModalBody"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ок</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Подключение скриптов Bootstrap и вашего JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function showRegistrationForm() {
+            document.getElementById("registrationForm").style.display = "block";
+        }
+
+        function showErrorModal(message) {
+            var errorModalBody = document.getElementById("errorModalBody");
+            errorModalBody.innerHTML = message;
+            $('#errorModal').modal('show');
+        }
+
+        function saveData(event) {
+            event.preventDefault();
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (name.trim() === "" || email.trim() === "" || password.trim() === "" || confirmPassword.trim() === "") {
+                showErrorModal("Пожалуйста, заполните все поля.");
+            } else if (password !== confirmPassword) {
+                showErrorModal("Пароли не совпадают.");
+            } else {
+                // AJAX запрос для отправки данных на сервер
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "process.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            alert(xhr.responseText); // Ответ от сервера
+                            document.getElementById("registrationForm").style.display = "none";
+                        } else {
+                            showErrorModal("Произошла ошибка при отправке данных.");
+                        }
+                    }
+                };
+                xhr.send("name=" + name + "&email=" + email + "&password=" + password);
+            }
+        }
+    </script>
 </body>
 </html>
