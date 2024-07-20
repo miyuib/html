@@ -56,7 +56,10 @@
             background-color: #0056b3;
         }
         .section {
-            margin-bottom: 30px;
+            display: none;
+        }
+        .section.active {
+            display: block;
         }
         footer {
             background-color: #333;
@@ -67,21 +70,28 @@
             width: 100%;
             bottom: 0;
         }
-        .cheat-item {
-            margin-bottom: 20px;
-        }
-        .cheat-item h3 {
-            margin: 0;
-        }
     </style>
+    <script>
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        window.onload = function() {
+            showSection('home');
+        };
+    </script>
 </head>
 <body>
     <header>
         <h1>Inerium - Читы</h1>
         <nav>
             <ul>
-                <li><a href="#home">Главная</a></li>
-                <li><a href="#cheats">Читы</a></li>
+                <li><a href="#" onclick="showSection('home')">Главная</a></li>
+                <li><a href="#" onclick="showSection('cheats')">Читы</a></li>
             </ul>
         </nav>
     </header>
@@ -116,4 +126,3 @@
     </footer>
 </body>
 </html>
-
