@@ -1,132 +1,417 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inerium - Читы</title>
+    <title>Inerium - Лучший софт для Geforce Now</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #1e1e1e;
-            color: #f0f0f0;
-        }
-        header {
-            background-color: #333;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        header h1 {
+            color: #ffffff;
             margin: 0;
-        }
-        nav ul {
-            list-style-type: none;
             padding: 0;
-            margin: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
         }
-        nav ul li {
-            margin: 0 15px;
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
         }
-        nav ul li a {
-            color: #f0f0f0;
-            text-decoration: none;
-            font-weight: bold;
+
+        .background-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            animation: animate 20s linear infinite;
+            bottom: -150px;
         }
-        nav ul li a:hover {
-            text-decoration: underline;
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
         }
-        .container {
-            padding: 20px;
+
+        .background-animation span:nth-child(odd) {
+            background-color: rgba(255, 204, 0, 0.2);
+            animation-duration: 25s;
         }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            color: #fff;
-            background-color: #007bff;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-            margin: 10px 0;
+
+        header {
+            width: 100%;
+            background-color: #333;
+            padding: 15px 0;
             text-align: center;
+            position: relative;
+            animation: slideDown 1s ease-out;
         }
-        .button:hover {
-            background-color: #0056b3;
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .section {
+
+        header nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 20px;
+            display: inline-block;
+            transition: background-color 0.3s, transform 0.3s;
+            position: relative;
+        }
+
+        header nav a:hover {
+            background-color: #555;
+            transform: scale(1.1);
+        }
+
+        header nav a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: #ffcc00;
+            bottom: 0;
+            left: 0;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        header nav a:hover::before {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+            width: 80%;
+            max-width: 1000px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .tab-content {
             display: none;
+            width: 100%;
         }
-        .section.active {
+
+        .tab-content.active {
             display: block;
         }
-        footer {
-            background-color: #333;
-            padding: 10px;
+
+        .tab-content img {
+            width: 300px;
+            height: auto;
+            border: 5px solid #ffcc00;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+            margin-right: 20px;
+        }
+
+        .tab-content h1 {
+            color: #ffcc00;
+            animation: pulse 1.5s infinite;
+            margin-bottom: 20px;
             text-align: center;
-            color: #f0f0f0;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .tab-content p {
+            text-align: center;
+        }
+
+        .free-version {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 10px 20px;
+            background-color: #ff3333;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .free-version:hover {
+            background-color: #ff5555;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+        }
+
+        .glow-button {
+            text-transform: uppercase;
+            padding: 15px 30px;
+            font-size: 14px;
+            font-weight: bold;
+            background-color: #ffcc00;
+            color: #333;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: box-shadow 0.3s ease-in-out;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.75);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 20px rgba(255, 204, 0, 1);
+        }
+
+        .modal {
+            display: none;
             position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
             width: 100%;
-            bottom: 0;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.75);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
+
+        .modal-content {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            color: #fff;
+            animation: zoomIn 0.3s ease-out;
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.5);
+            position: relative;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-header img {
+            width: 100px;
+            height: auto;
+            margin-right: 10px;
+            border: 5px solid #ffcc00;
+            border-radius: 10px;
+        }
+
+        .modal-body {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            background-color: #ff3333;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .modal-close:hover {
+            background-color: #ff5555;
+            transform: scale(1.1);
+        }
+
+        .modal-close::after {
+            content: '✖';
+            display: inline-block;
+            margin-left: 10px;
+            font-size: 18px;
+        }
+
+        .cursor-trail {
+            position: absolute;
+            border-radius: 0%;
+            background-color: rgba(255, 0, 0, 0.6);
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            z-index: 1000;
+        }
+        .cursor {
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            border: 0px solid #ffcc00;
+            border-radius: 0%;
+            background-color: transparent;
+            pointer-events: none;
+            transform: translate(-0%, -0%);
+            z-index: 0;
     </style>
-    <script>
-        function showSection(sectionId) {
-            var sections = document.querySelectorAll('.section');
-            sections.forEach(function(section) {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-        }
-
-        window.onload = function() {
-            showSection('home');
-        };
-    </script>
 </head>
-<body>
-    <header>
-        <h1>Inerium - Читы</h1>
-        <nav>
-            <ul>
-                <li><a href="#" onclick="showSection('home')">Главная</a></li>
-                <li><a href="#" onclick="showSection('cheats')">Читы</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <div class="container">
-        <section id="home" class="section">
-            <h2>Добро пожаловать на Inerium</h2>
-            <p>Ваш источник для получения читов и модификаций для различных игр. На нашем сайте вы найдете самые лучшие читы, которые помогут вам стать мастером игры.</p>
-        </section>
 
-        <section id="cheats" class="section">
-            <h2>Читы</h2>
-            <div class="cheat-item">
-                <h3>SCP Classified Site</h3>
-                <p>Чит для игры SCP Classified Site. Нажмите кнопку ниже, чтобы перейти к загрузке:</p>
-                <a href="https://github.com/miyuib/INERIUM-Scp-Classfied-Site/releases/tag/SCPClassifiedSite" class="button" target="_blank">Скачать чит</a>
-            </div>
-        <div class="cheat-item">
-            <h3>One-Armed-Roberr</h3>
-            <p>Чит для игры One-Armed-Roberr. Нажмите кнопку ниже, чтобы перейти к загрузке:</p>
-            <a href="https://github.com/miyuib/Inerium-One-Armed-Roberr/releases/tag/Release" class="button" target="_blank">Скачать чит</a>
-            <!-- Можно добавить больше читов здесь -->
-            <!-- Пример для другого чита -->
-            <!--
-            <div class="cheat-item">
-                <h3>Название чита</h3>
-                <p>Описание чита. Нажмите кнопку ниже, чтобы перейти к загрузке:</p>
-                <a href="URL_для_скачивания" class="button" target="_blank">Скачать чит</a>
-            </div>
-            -->
-        </section>
+<body>
+    <div class="background-animation">
+        <span style="left: 10%; animation-delay: 0s; animation-duration: 20s;"></span>
+        <span style="left: 20%; animation-delay: 2s; animation-duration: 18s;"></span>
+        <span style="left: 30%; animation-delay: 4s; animation-duration: 25s;"></span>
+        <span style="left: 40%; animation-delay: 1s; animation-duration: 22s;"></span>
+        <span style="left: 50%; animation-delay: 6s; animation-duration: 28s;"></span>
+        <span style="left: 60%; animation-delay: 0s; animation-duration: 30s;"></span>
+        <span style="left: 70%; animation-delay: 5s; animation-duration: 17s;"></span>
+        <span style="left: 80%; animation-delay: 2s; animation-duration: 23s;"></span>
+        <span style="left: 90%; animation-delay: 4s; animation-duration: 19s;"></span>
     </div>
 
-    <footer>
-        <p>&copy; 2024 Inerium. Все права защищены.</p>
-    </footer>
+    <header>
+        <nav>
+            <a href="#" onclick="showTab('home')">Главная</a>
+            <a href="#" onclick="showTab('news')">Что нового</a>
+            <a href="#" onclick="showTab('shop')">Магазин</a>
+        </nav>
+        <a href="https://test.com" class="free-version">FREE VERSION</a>
+    </header>
+
+    <div class="content">
+        <div id="home" class="tab-content active">
+            <div style="display: flex; align-items: center; justify-content: center; text-align: left;">
+                <img src="https://upload.wikimedia.org/wikipedia/ru/d/db/Counter-strike_2.jpg" alt="Counter-Strike 2">
+                <div>
+                    <h1>Inerium - Лучший софт для Geforce Now</h1>
+                    <p>У нас есть bhop, rcs, wallhack и уникальный прицел с гибкой настройкой. Самый дешевый чит в мире, который без бана!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="news" class="tab-content">
+            <h1>Что нового</h1>
+            <p>Пока что нечего. Версия 1.0</p>
+        </div>
+
+        <div id="shop" class="tab-content">
+            <h1>Магазин</h1>
+            <p>Пока что один товар: External 1 month - 150₴</p>
+            <a href="#" class="glow-button" onclick="openModal()">Купить</a>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="https://upload.wikimedia.org/wikipedia/ru/d/db/Counter-strike_2.jpg" alt="Counter-Strike 2">
+                <span>Покупка</span>
+            </div>
+            <div class="modal-body">
+                <p>Купить можно в телеграме @Overn12! (Только тут)</p>
+            </div>
+            <a class="modal-close" onclick="closeModal()">Закрыть</a>
+        </div>
+    </div>
+
+    <div id="cursor-trail"></div>
+    <div id="cursor" class="cursor"></div>
+
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.getElementById('cursor');
+            const cursorTrail = document.getElementById('cursor-trail');
+
+            cursor.style.top = `${e.clientY}px`;
+            cursor.style.left = `${e.clientX}px`;
+
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.top = `${e.clientY}px`;
+            trail.style.left = `${e.clientX}px`;
+            cursorTrail.appendChild(trail);
+
+            setTimeout(() => {
+                trail.style.opacity = '0';
+                setTimeout(() => trail.remove(), 300);
+            }, 100);
+
+            const trails = cursorTrail.getElementsByClassName('cursor-trail');
+            if (trails.length > 100) {
+                trails[0].remove();
+            }
+        });
+
+        function showTab(tabId) {
+            var tabs = document.getElementsByClassName('tab-content');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function openModal() {
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
 </body>
+
 </html>
+
