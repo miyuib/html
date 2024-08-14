@@ -38,11 +38,6 @@
             bottom: -150px;
         }
 
-        .background-animation span:nth-child(odd) {
-            background-color: rgba(255, 204, 0, 0.2);
-            animation-duration: 25s;
-        }
-
         @keyframes animate {
             0% {
                 transform: translateY(0) rotate(0deg);
@@ -54,31 +49,9 @@
             }
         }
 
-        .background-animation .circle {
-            border-radius: 50%;
-        }
-
-        .background-animation .large {
-            width: 40px;
-            height: 40px;
-        }
-
-        .background-animation .small {
-            width: 10px;
-            height: 10px;
-        }
-
-        .background-animation .medium {
-            width: 30px;
-            height: 30px;
-        }
-
-        .background-animation .slow {
-            animation-duration: 30s;
-        }
-
-        .background-animation .fast {
-            animation-duration: 15s;
+        .background-animation span:nth-child(odd) {
+            background-color: rgba(255, 204, 0, 0.2);
+            animation-duration: 25s;
         }
 
         header {
@@ -101,6 +74,12 @@
             }
         }
 
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
         header nav a {
             color: #ffffff;
             text-decoration: none;
@@ -108,6 +87,7 @@
             display: inline-block;
             transition: background-color 0.3s, transform 0.3s;
             position: relative;
+            border-radius: 5px;
         }
 
         header nav a:hover {
@@ -328,100 +308,91 @@
             width: 0px;
             height: 0px;
             border: 0px solid #ffcc00;
-            border-radius: 100%;
-            transition: all 0.3s ease-out;
+            border-radius: 0%;
+            background-color: transparent;
             pointer-events: none;
-            z-index: 1000;
-        }
-        .cursor::before {
-            content: '';
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: rgba(255, 204, 0, 0.8);
-            transform: translate(-50%, -50%);
+            transform: translate(-0%, -0%);
+            z-index: 0;
         }
 
+        .youtube-link {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            color: #ffcc00;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .youtube-link:hover {
+            color: #fff;
+        }
     </style>
 </head>
 
 <body>
     <div class="background-animation">
-        <span class="circle large slow"></span>
-        <span class="circle medium"></span>
-        <span class="circle small fast"></span>
-        <span class="circle large"></span>
-        <span class="circle medium slow"></span>
-        <span class="circle small fast"></span>
+        <span style="left: 20%; animation-delay: 0s;"></span>
+        <span style="left: 40%; animation-delay: 2s;"></span>
+        <span style="left: 60%; animation-delay: 4s;"></span>
+        <span style="left: 80%; animation-delay: 6s;"></span>
     </div>
 
     <header>
         <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
+            <a href="#" onclick="openTab('home')">Главная</a>
+            <a href="#" onclick="openTab('shop')">Магазин</a>
+            <a href="#" onclick="openTab('about')">О нас</a>
+            <a href="#" onclick="openTab('contact')">Контакты</a>
         </nav>
+        <a href="#" class="free-version">Скачать бесплатно</a>
     </header>
 
     <div class="content">
-        <div class="tab-content active" id="home">
-            <h1>Welcome to Inerium</h1>
-            <p>Your go-to solution for Geforce Now</p>
-            <button class="glow-button">Get Started</button>
+        <div id="home" class="tab-content active">
+            <h1>Добро пожаловать в Inerium!</h1>
+            <p>Самый лучший софт для Geforce Now. Убедитесь в этом сами!</p>
+        </div>
+        <div id="shop" class="tab-content">
+            <h1>Магазин</h1>
+            <p>Выберите количество часов и получите цену:</p>
+            <form>
+                <label for="hours">Количество часов:</label>
+                <input type="number" id="hours" name="hours" value="1" min="1" onchange="calculatePrice()">
+                <p>Цена: <span id="price">5 руб</span></p>
+            </form>
+            <p>Для покупки свяжитесь с нами через раздел "Контакты".</p>
+        </div>
+        <div id="about" class="tab-content">
+            <h1>О нас</h1>
+            <p>Inerium предоставляет лучшее ПО для геймеров, используя наши разработки, вы всегда будете на шаг впереди.</p>
+        </div>
+        <div id="contact" class="tab-content">
+            <h1>Контакты</h1>
+            <p>Для связи с нами используйте следующие каналы:</p>
+            <ul>
+                <li>Email: support@inerium.com</li>
+                <li>Телефон: +7 900 000-00-00</li>
+                <li>Адрес: Москва, Россия</li>
+            </ul>
         </div>
     </div>
 
-    <div class="modal" id="myModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <img src="logo.png" alt="Logo">
-                <span>Modal Title</span>
-            </div>
-            <div class="modal-body">
-                This is the content of the modal.
-            </div>
-            <a class="modal-close">Close</a>
-        </div>
-    </div>
+    <a href="https://www.youtube.com/channel/UCVt6ZQCsXlQ2P6JmIfv7XQg" class="youtube-link" target="_blank">Наш YouTube канал</a>
 
     <script>
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', function () {
-                document.querySelectorAll('.tab-content').forEach(tab => {
-                    tab.classList.remove('active');
-                });
-                document.querySelector(this.getAttribute('href')).classList.add('active');
-            });
-        });
+        function openTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
 
-        document.querySelector('.glow-button').addEventListener('click', function () {
-            document.getElementById('myModal').style.display = 'flex';
-        });
-
-        document.querySelector('.modal-close').addEventListener('click', function () {
-            document.getElementById('myModal').style.display = 'none';
-        });
-
-        document.addEventListener('mousemove', function (e) {
-            let cursor = document.querySelector('.cursor-trail');
-            cursor.style.left = e.pageX + 'px';
-            cursor.style.top = e.pageY + 'px';
-        });
-
-        document.querySelector('body').addEventListener('mousemove', (e) => {
-            const cursor = document.querySelector('.cursor');
-            cursor.style.left = `${e.pageX}px`;
-            cursor.style.top = `${e.pageY}px`;
-        });
-
-        setInterval(() => {
-            const cursor = document.querySelector('.cursor');
-            cursor.style.border = `${Math.random() * 15}px solid #ffcc00`;
-            cursor.style.width = `${Math.random() * 100}px`;
-            cursor.style.height = `${Math.random() * 100}px`;
-        }, 300);
+        function calculatePrice() {
+            const hours = document.getElementById('hours').value;
+            const price = hours * 5;
+            document.getElementById('price').innerText = price + ' руб';
+        }
     </script>
 </body>
 
