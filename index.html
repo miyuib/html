@@ -38,6 +38,11 @@
             bottom: -150px;
         }
 
+        .background-animation span:nth-child(odd) {
+            background-color: rgba(255, 204, 0, 0.2);
+            animation-duration: 25s;
+        }
+
         @keyframes animate {
             0% {
                 transform: translateY(0) rotate(0deg);
@@ -49,9 +54,31 @@
             }
         }
 
-        .background-animation span:nth-child(odd) {
-            background-color: rgba(255, 204, 0, 0.2);
-            animation-duration: 25s;
+        .background-animation .circle {
+            border-radius: 50%;
+        }
+
+        .background-animation .large {
+            width: 40px;
+            height: 40px;
+        }
+
+        .background-animation .small {
+            width: 10px;
+            height: 10px;
+        }
+
+        .background-animation .medium {
+            width: 30px;
+            height: 30px;
+        }
+
+        .background-animation .slow {
+            animation-duration: 30s;
+        }
+
+        .background-animation .fast {
+            animation-duration: 15s;
         }
 
         header {
@@ -301,117 +328,101 @@
             width: 0px;
             height: 0px;
             border: 0px solid #ffcc00;
-            border-radius: 0%;
-            background-color: transparent;
+            border-radius: 100%;
+            transition: all 0.3s ease-out;
             pointer-events: none;
-            transform: translate(-0%, -0%);
-            z-index: 0;
+            z-index: 1000;
+        }
+        .cursor::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 204, 0, 0.8);
+            transform: translate(-50%, -50%);
+        }
+
     </style>
 </head>
 
 <body>
     <div class="background-animation">
-        <span style="left: 10%; animation-delay: 0s; animation-duration: 20s;"></span>
-        <span style="left: 20%; animation-delay: 2s; animation-duration: 18s;"></span>
-        <span style="left: 30%; animation-delay: 4s; animation-duration: 25s;"></span>
-        <span style="left: 40%; animation-delay: 1s; animation-duration: 22s;"></span>
-        <span style="left: 50%; animation-delay: 6s; animation-duration: 28s;"></span>
-        <span style="left: 60%; animation-delay: 0s; animation-duration: 30s;"></span>
-        <span style="left: 70%; animation-delay: 5s; animation-duration: 17s;"></span>
-        <span style="left: 80%; animation-delay: 2s; animation-duration: 23s;"></span>
-        <span style="left: 90%; animation-delay: 4s; animation-duration: 19s;"></span>
+        <span class="circle large slow"></span>
+        <span class="circle medium"></span>
+        <span class="circle small fast"></span>
+        <span class="circle large"></span>
+        <span class="circle medium slow"></span>
+        <span class="circle small fast"></span>
     </div>
 
     <header>
         <nav>
-            <a href="#" onclick="showTab('home')">Главная</a>
-            <a href="#" onclick="showTab('news')">Что нового</a>
-            <a href="#" onclick="showTab('shop')">Магазин</a>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
         </nav>
-        <a href="https://github.com/miyuib/free-inerium/releases/download/resgg/inerium.free.exe" class="free-version">FREE VERSION</a>
     </header>
 
     <div class="content">
-        <div id="home" class="tab-content active">
-            <div style="display: flex; align-items: center; justify-content: center; text-align: left;">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/d/db/Counter-strike_2.jpg" alt="Counter-Strike 2">
-                <div>
-                    <h1>Inerium - Лучший софт для Geforce Now</h1>
-                    <p>У нас есть bhop, rcs, wallhack и уникальный прицел с гибкой настройкой. Самый дешевый чит в мире, который без бана!</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="news" class="tab-content">
-            <h1>Что нового</h1>
-            <p>Пока что нечего. Версия 1.0</p>
-        </div>
-
-        <div id="shop" class="tab-content">
-            <h1>Магазин</h1>
-            <p>Пока что один товар: External 1 month - 150₴</p>
-            <a href="#" class="glow-button" onclick="openModal()">Купить</a>
+        <div class="tab-content active" id="home">
+            <h1>Welcome to Inerium</h1>
+            <p>Your go-to solution for Geforce Now</p>
+            <button class="glow-button">Get Started</button>
         </div>
     </div>
 
-    <div id="modal" class="modal">
+    <div class="modal" id="myModal">
         <div class="modal-content">
             <div class="modal-header">
-                <img src="https://upload.wikimedia.org/wikipedia/ru/d/db/Counter-strike_2.jpg" alt="Counter-Strike 2">
-                <span>Покупка</span>
+                <img src="logo.png" alt="Logo">
+                <span>Modal Title</span>
             </div>
             <div class="modal-body">
-                <p>Купить можно в телеграме @Overn12! (Только тут)</p>
+                This is the content of the modal.
             </div>
-            <a class="modal-close" onclick="closeModal()">Закрыть</a>
+            <a class="modal-close">Close</a>
         </div>
     </div>
 
-    <div id="cursor-trail"></div>
-    <div id="cursor" class="cursor"></div>
-
     <script>
-        document.addEventListener('mousemove', (e) => {
-            const cursor = document.getElementById('cursor');
-            const cursorTrail = document.getElementById('cursor-trail');
-
-            cursor.style.top = `${e.clientY}px`;
-            cursor.style.left = `${e.clientX}px`;
-
-            const trail = document.createElement('div');
-            trail.className = 'cursor-trail';
-            trail.style.top = `${e.clientY}px`;
-            trail.style.left = `${e.clientX}px`;
-            cursorTrail.appendChild(trail);
-
-            setTimeout(() => {
-                trail.style.opacity = '0';
-                setTimeout(() => trail.remove(), 300);
-            }, 100);
-
-            const trails = cursorTrail.getElementsByClassName('cursor-trail');
-            if (trails.length > 100) {
-                trails[0].remove();
-            }
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function () {
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.querySelector(this.getAttribute('href')).classList.add('active');
+            });
         });
 
-        function showTab(tabId) {
-            var tabs = document.getElementsByClassName('tab-content');
-            for (var i = 0; i < tabs.length; i++) {
-                tabs[i].classList.remove('active');
-            }
-            document.getElementById(tabId).classList.add('active');
-        }
+        document.querySelector('.glow-button').addEventListener('click', function () {
+            document.getElementById('myModal').style.display = 'flex';
+        });
 
-        function openModal() {
-            document.getElementById('modal').style.display = 'flex';
-        }
+        document.querySelector('.modal-close').addEventListener('click', function () {
+            document.getElementById('myModal').style.display = 'none';
+        });
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
+        document.addEventListener('mousemove', function (e) {
+            let cursor = document.querySelector('.cursor-trail');
+            cursor.style.left = e.pageX + 'px';
+            cursor.style.top = e.pageY + 'px';
+        });
+
+        document.querySelector('body').addEventListener('mousemove', (e) => {
+            const cursor = document.querySelector('.cursor');
+            cursor.style.left = `${e.pageX}px`;
+            cursor.style.top = `${e.pageY}px`;
+        });
+
+        setInterval(() => {
+            const cursor = document.querySelector('.cursor');
+            cursor.style.border = `${Math.random() * 15}px solid #ffcc00`;
+            cursor.style.width = `${Math.random() * 100}px`;
+            cursor.style.height = `${Math.random() * 100}px`;
+        }, 300);
     </script>
 </body>
 
 </html>
-
